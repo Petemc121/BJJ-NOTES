@@ -3,11 +3,18 @@ import BJJLogs from './BJJLogs';
 import app from './app.css';
 
 export default function App() {
-   const [logs, setBJJLogs] = useState([{id:1, name:'bjjlog1', completed:false}]);
+   const [logs, setBJJLogs] = useState([]);
    const instructionalRef = useRef();
    const techniqueRef = useRef();
     function createLog(e) {
-
+       const instructional =  instructionalRef.current.value;
+       const technique = techniqueRef.current.value;
+       if(technique == "") return;
+       setBJJLogs(prevLogs => {
+           return [...prevLogs, {id: 1, instructional:instructional, technique:technique}];
+       })
+       instructionalRef.current.value = null
+       techniqueRef.current.value = null
     }
 
 
