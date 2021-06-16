@@ -6,16 +6,21 @@ export default function App() {
    const [logs, setBJJLogs] = useState([]);
    const instructionalRef = useRef();
    const techniqueRef = useRef();
+   let id = 0
+
     function createLog(e) {
        const instructional =  instructionalRef.current.value;
        const technique = techniqueRef.current.value;
        if(technique == "") return;
        setBJJLogs(prevLogs => {
-           return [...prevLogs, {id: 1, instructional:instructional, technique:technique}];
+           id++;
+           return [...prevLogs, {id: id, instructional:instructional, technique:technique}];
        })
        instructionalRef.current.value = null
        techniqueRef.current.value = null
     }
+
+  
 
 
     return (
