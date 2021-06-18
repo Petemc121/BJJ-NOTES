@@ -6,22 +6,21 @@ export default function App() {
    const [logs, setBJJLogs] = useState([]);
    const instructionalRef = useRef();
    const techniqueRef = useRef();
-   let id = 0
-
+   let logNo = 0;
     function createLog(e) {
        const instructional =  instructionalRef.current.value;
        const technique = techniqueRef.current.value;
        if(technique == "") return;
        setBJJLogs(prevLogs => {
-           id++;
-           return [...prevLogs, {id: id, instructional:instructional, technique:technique}];
+           logNo++
+           return [...prevLogs, {id: logNo, instructional:instructional, technique:technique, note1:"Place your notes here.", note2:"Place your notes here.", note3:"Place your notes here.", edit:false}];
        })
        instructionalRef.current.value = null
        techniqueRef.current.value = null
     }
 
-  
-
+    
+   
 
     return (
         <>
