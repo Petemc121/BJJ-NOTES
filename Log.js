@@ -6,8 +6,9 @@ export default function Log({log}) {
     const save = useRef();
     const cancel = useRef();
     const con = useRef();
-    let noteId = 0;
+    const addButton = useRef();
     const [notes, setNotes] = useState([])
+    console.log(notes)
     function edit() {
         con.current.style.display ="flex"
         save.current.style.display ="block"
@@ -22,13 +23,16 @@ export default function Log({log}) {
 
     }
 
-    function saved() {
-        
+    function handleAddNote() {
 
+       
         setNotes(notes => {
-            noteId++;
-            return [...notes, {noteText:"", noteID:noteId}]
+           
+            return [...notes, {noteText:"", noteID:notes.length + 1, noteTitle:"Note " + notes.length + 1}]
+            
         })
+
+
     }
 
    
@@ -43,13 +47,14 @@ export default function Log({log}) {
 
             <h4>Notes</h4>
 
-            <Notes notes={notes}/>
+            <Notes key={log.id} notes={notes}/>
+
+            <button ref={addButton} onClick={handleAddNote} id="add">+</button>
 
             <div ref={con} id="saveCancelCon">
-            <button ref={save} onClick={saved} class="saveCancel">Save</button>
+            <button ref={save} class="saveCancel">Save</button>
             <button ref={cancel} onClick={cancelled} class="saveCancel">cancel</button>
             </div>
-            <button id="edit" onClick={edit} >Edit</button>
 
         </div>
     )
