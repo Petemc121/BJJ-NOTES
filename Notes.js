@@ -1,14 +1,14 @@
 import React from 'react'
 import Note from './Note.js'
 
-export default function Notes(props) {
+export default function Notes({notes}) {
 
+  
 
     return (
         <div class="notesCon">
-            {props.notes.map(note => {
-                console.log(note.id)
-                return <Note key={note.id} note={note}/>;
+            {notes.map(note => {
+                return <Note key={note.noteID} note={note}/>;
             })}
         </div>
     )
