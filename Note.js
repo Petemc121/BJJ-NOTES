@@ -1,12 +1,45 @@
 import React, {useState, useRef} from 'react'
 
 export default function Note({note}) {
-   const [edit, setEdit] = useState({
-                                         id: note.noteID,
-                                         text: "hello"
-                                                             })
+   const [edit, setEdit] = useState("Your note will appear here.")
+   const [editing, setEditing] = useState(false);
+   const noteRef = useRef();
+   let editDisplay = "display-block"
+   let updateDisplay = "display-none"
+        
+    
+ const updateNote = () => {
+   let editValue = noteRef.current.value;
+       setEdit(editValue);
+       toggleButtonDisplay()
+       setEditing(true)
+       editValue = null;
+    }
 
-    let noteRef = useRef();                                                           
+    const editNote = () =>
+    {
+        
+        toggleButtonDisplay();
+        setEditing(false);
+        console.log(updateDisplay)
+        console.log(editDisplay)
+    }
+
+    
+
+const toggleButtonDisplay = () => {
+   if(editing === false) 
+   {
+   updateDisplay = 'display-block';
+   editDisplay = "display-none" 
+   }else
+   {
+    editDisplay = "display-none"
+    updateDisplay = 'display-block';
+
+   }
+  
+}
 
 
 
@@ -15,9 +48,10 @@ export default function Note({note}) {
             <h4>Note {note.noteID}:</h4>
             <div class="noteContain">
             <input ref={noteRef} type="text" placeholder="Add your note here"></input>
-            <div>{edit.text}</div>
+            <div>{edit}</div>
             
-            <button>Update</button>
+            <button className={updateDisplay} onClick={updateNote}>Update</button>
+            <button className={editDisplay} onClick={editNote}>Edit</button>
             </div>
         </div>
     )

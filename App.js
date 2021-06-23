@@ -10,7 +10,7 @@ export default function App() {
     function createLog(e) {
        const instructional =  instructionalRef.current.value;
        const technique = techniqueRef.current.value;
-       if(technique == "") return;
+       if(technique === "") return;
        setBJJLogs(prevLogs => {
            logNo++
            return [...prevLogs, {id: logNo, instructional:instructional, technique:technique, note1:"Place your notes here.", note2:"Place your notes here.", note3:"Place your notes here.", edit:false}];
