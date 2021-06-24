@@ -1,45 +1,36 @@
 import React, {useState, useRef} from 'react'
+import UpdateButton from './UpdateButton'
+import EditButton from './EditButton'
+import NoteInput from './NoteInput'
 
 export default function Note({note}) {
    const [edit, setEdit] = useState("Your note will appear here.")
-   const [editing, setEditing] = useState(false);
+   const [editDisplay, setEditDisplay] = useState("block");
+   const [noteDisplay, setNoteDisplay] = useState("none");
    const noteRef = useRef();
-   let editDisplay = "display-block"
-   let updateDisplay = "display-none"
+   const [updateDisplay, setUpdateDisplay] = useState("none");
         
     
  const updateNote = () => {
-   let editValue = noteRef.current.value;
+   let editValue = noteRef
        setEdit(editValue);
-       toggleButtonDisplay()
-       setEditing(true)
+       setUpdateDisplay("none")
+       setNoteDisplay("none")
+       setEditDisplay("block")
        editValue = null;
     }
 
     const editNote = () =>
     {
         
-        toggleButtonDisplay();
-        setEditing(false);
+        setEditDisplay("none")
+        setNoteDisplay("block")
+        setUpdateDisplay("block")
         console.log(updateDisplay)
         console.log(editDisplay)
     }
 
-    
 
-const toggleButtonDisplay = () => {
-   if(editing === false) 
-   {
-   updateDisplay = 'display-block';
-   editDisplay = "display-none" 
-   }else
-   {
-    editDisplay = "display-none"
-    updateDisplay = 'display-block';
-
-   }
-  
-}
 
 
 
@@ -47,11 +38,11 @@ const toggleButtonDisplay = () => {
         <div>
             <h4>Note {note.noteID}:</h4>
             <div class="noteContain">
-            <input ref={noteRef} type="text" placeholder="Add your note here"></input>
+            <NoteInput ref={noteRef} display={noteDisplay} />
             <div>{edit}</div>
             
-            <button className={updateDisplay} onClick={updateNote}>Update</button>
-            <button className={editDisplay} onClick={editNote}>Edit</button>
+            <UpdateButton display={updateDisplay} onClick={updateNote} />
+            <EditButton display={editDisplay} onClick={editNote} />
             </div>
         </div>
     )
