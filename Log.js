@@ -26,7 +26,7 @@ export default function Log({log}) {
 
 
     return (
-        <div class="log">
+        <div style={{backgroundColor: log.color}} class="log">
             <h4>Instructional</h4>
           {log.instructional}
            <h4>technique</h4>
