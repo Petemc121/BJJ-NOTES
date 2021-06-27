@@ -14,7 +14,7 @@ body {
 
 
 #inContain {
-  margin: 50px 50%;
+  margin: 100px 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,6 +47,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap:wrap;
 }
 
 .log {
@@ -84,6 +85,8 @@ h4 {
 label {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color:yellow;
+  font-size:25px;
+  font-weight:bold;
 }
 
 
@@ -125,12 +128,28 @@ label {
   font-weight:bold;
   width:50px;
 }
+#delete {
+  margin:20px 0px 20px 0px;
+  background-color:rgb(179, 84, 84);
+  border:none;
+  padding:10px;
+  border-radius:5px;
+  color:white;
+  font-size:25px;
+  font-weight:bold;
+  cursor: pointer;
+
+}
 
 
 #add:focus{
   border:2px solid white;
 }
 
+
+#delete:focus{
+  border:2px solid white;
+}
 
 .display-none {
   display: none;

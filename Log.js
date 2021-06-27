@@ -1,12 +1,12 @@
 import React, {useState, useRef} from 'react'
 import Notes from './Notes.js'
 
-export default function Log({log}) {
+export default function Log({log, handleDeleteLog}) {
     
 
     const addButton = useRef();
     const [notes, setNotes] = useState([])
-    console.log(notes)
+    
  
 
 
@@ -29,7 +29,7 @@ export default function Log({log}) {
         <div style={{backgroundColor: log.color}} class="log">
             <h4>Instructional</h4>
           {log.instructional}
-           <h4>technique</h4>
+           <h4>Technique</h4>
             {log.technique}
 
             <h4>Notes</h4>
@@ -37,6 +37,7 @@ export default function Log({log}) {
             <Notes key={log.id} notes={notes}/>
 
             <button ref={addButton} onClick={handleAddNote} id="add">+</button>
+            <button ref={addButton} onClick={() => handleDeleteLog(log.id)} id="delete">Delete Note</button>
 
         </div>
     )
