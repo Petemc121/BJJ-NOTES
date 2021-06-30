@@ -27,8 +27,6 @@ export default function Log({log, handleDeleteLog}) {
 
     return (
         <div style={{backgroundColor: log.color}} class="log">
-            <h4>Instructional</h4>
-          {log.instructional}
            <h4>Technique</h4>
             {log.technique}
 
