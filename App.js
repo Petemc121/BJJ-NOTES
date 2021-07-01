@@ -1,13 +1,17 @@
 import React, { useState, useRef } from 'react';
 import BJJLogs from './BJJLogs';
+import Categories from './Categories';
 
 
 export default function App() {
    const [logs, setBJJLogs] = useState([]);
-   const instructionalRef = useRef();
+   const [categories, setCategories] = useState([]);
+   const categoryRef = useRef();
    const techniqueRef = useRef();
    let logNo = Math.floor(Math.random()*100000);
-    function createLog(e) {
+   let catNo = Math.floor(Math.random()*100000);
+   
+   function createLog(e) {
        const technique = techniqueRef.current.value;
        let color = "#" + getRandom(2000000, 1000000).toString(16);
     
@@ -17,7 +21,7 @@ export default function App() {
            {
                 const replace = color.replace('#', '');
                 const number= parseInt(replace)
-               const newNumber = number + 100000;
+                const newNumber = number + 100000;
                 color = newNumber
            }
        }
@@ -28,13 +32,31 @@ export default function App() {
         }
         
        setBJJLogs(prevLogs => {
-        console.log(logs)
+      
            return [...prevLogs, {id: logNo, technique:technique, color:color}];
 
        })
        
   
        techniqueRef.current.value = null
+    }
+
+    function handleCreateCategory()
+    {
+        let color = "#" + getRandom(2000000, 1000000).toString(16);
+        const category = categoryRef.current.value;
+
+        if(category === "")
+        { alert("Please enter a category.") 
+        return;
+         }
+
+         setCategories(prevCategories => {
+             return [...prevCategories, {id:catNo, category:category, color:color }]
+         })
+
+         categoryRef.current.value = null;
+
     }
 
     function getRandom(max, min) {
@@ -66,9 +88,11 @@ export default function App() {
         </div>
         <BJJLogs handleDeleteLog={handleDeleteLog} logs={ logs } />
         <div class="inContain">
-        <label for="instructional">Instructional</label>    
-        <input ref={instructionalRef} id="instructional" class="input" type="text"></input>
+        <label for="instructional">Categories</label>    
+        <input ref={categoryRef} id="category" class="input" type="text"></input>
+        <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
+        <Categories categories={categories}/>
         </>
     )
     

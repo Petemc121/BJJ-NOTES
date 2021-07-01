@@ -53,6 +53,13 @@ body {
   border-radius: 5px;
 }
 
+#addCategory {
+  background-color: rgb(118, 84, 179);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 #addNote:focus {
   border: 2px solid white;
 }
@@ -76,6 +83,20 @@ body {
   padding: 10px;
   margin: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.category {
+  width: 80%;
+  border-radius: 10px;
+  border: 20px solid grey;
+  padding: 10px;
+  margin: 20px 0px 20px 0px;
+}
+
+#categoriesCon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .edit {

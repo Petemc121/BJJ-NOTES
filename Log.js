@@ -7,8 +7,6 @@ export default function Log({log, handleDeleteLog}) {
     const addButton = useRef();
     const [notes, setNotes] = useState([])
     
- 
-
 
     function handleAddNote() {
 
@@ -26,7 +24,7 @@ export default function Log({log, handleDeleteLog}) {
 
 
     return (
-        <div style={{backgroundColor: log.color}} class="log">
+        <div draggable="true" style={{backgroundColor: log.color}} class="log">
            <h4>Technique</h4>
             {log.technique}
 
