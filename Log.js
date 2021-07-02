@@ -20,11 +20,15 @@ export default function Log({log, handleDeleteLog}) {
 
     }
 
+    function handleDragStart(e) {
+        e.style.opacity = '0.4';  // this / e.target is the source node.
+      }
+
    
 
 
     return (
-        <div draggable="true" style={{backgroundColor: log.color}} class="log">
+        <div draggable="true" dragStart={handleDragStart}  style={{backgroundColor: log.color}} class="log">
            <h4>Technique</h4>
             {log.technique}
 
