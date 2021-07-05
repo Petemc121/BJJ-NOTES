@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 
 export default function Category({category}) {
         const [catTechniques, setCatTechniques] = useState([])
-    function handleAddTechnique() {
+    function handleAddCatTechnique() {
 
        
         setCatTechniques(prevCatTechniques => {
@@ -15,8 +15,25 @@ export default function Category({category}) {
 
     }
 
+    const handleDragOver = () =>
+    {
+        
+    }
+
+    const handleDragEnter = (e) =>
+    {
+        e.target.style.filter = "brightness(200%)";
+    }
+
+    const handleDragLeave = (e) =>
+    {
+        e.target.style.filter = "brightness(100%)";
+    }
+
+    
+
     return (
-        <div droppable="true" style={{backgroundColor:category.color}} class="category">
+        <div onDragEnter={handleDragEnter}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
             <h1>{category.category + ":"}</h1>
         </div>
     )
