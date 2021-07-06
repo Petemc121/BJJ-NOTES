@@ -21,15 +21,20 @@ export default function Log({log, handleDeleteLog}) {
     }
 
     function handleDragStart(e) {
-        e.target.style.display = 'none';  // this / e.target is the source node.
-    
+        e.target.classList.add('dragging');  // this / e.target is the source node.
+        
       }
 
+      
+    function handleDragEnd(e) {
+        e.target.classList.remove('dragging');  // this / e.target is the source node.
+        
+      }
    
 
 
     return (
-        <div draggable="true" onDrag={handleDragStart}  style={{backgroundColor: log.color}} class="log">
+        <div draggable="true" onDrag={handleDragStart} onDragEnd={handleDragEnd}  style={{backgroundColor: log.color}} class="log">
            <h4>Technique</h4>
             {log.technique}
 

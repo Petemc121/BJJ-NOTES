@@ -70,6 +70,8 @@ export default function App() {
    
 }
 
+
+
     
    
 
@@ -92,7 +94,7 @@ export default function App() {
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
-        <Categories categories={categories}/>
+        <Categories logs={logs} categories={categories}/>
         </>
     )
     

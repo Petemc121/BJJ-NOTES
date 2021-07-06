@@ -94,6 +94,10 @@ body {
   margin: 20px 0px 20px 0px;
 }
 
+.dragging {
+  opacity:0.5;
+}
+
 #categoriesCon {
   display: flex;
   flex-direction: column;
