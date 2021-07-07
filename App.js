@@ -17,7 +17,7 @@ export default function App() {
     
        for(let i = 0; i < logs.length; i++)
        { 
-           if (color == logs[i].color)
+           if (color === logs[i].color)
            {
                 const replace = color.replace('#', '');
                 const number= parseInt(replace)
@@ -94,7 +94,7 @@ export default function App() {
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
-        <Categories logs={logs} categories={categories}/>
+        <Categories logs={logs} handleDeleteLog={handleDeleteLog} categories={categories}/>
         </>
     )
     

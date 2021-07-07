@@ -1,11 +1,11 @@
 import React from 'react'
 import CategorizedLog from './CategorizedLog';
 
-export default function CategorizedLogs({catTechniques}) {
+export default function CategorizedLogs({catTechniques, handleDeleteLog}) {
     return (
-       <div>
+       <div class="categorizedLogsCon">
            {catTechniques.map(technique => {
-               <CategorizedLog key={technique.id} technique={technique}/>
+             return  <CategorizedLog handleDeleteLog={handleDeleteLog} key={technique.id} technique={technique} />
            })}
        </div>
     )

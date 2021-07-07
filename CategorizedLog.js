@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState,useRef} from 'react'
+import Notes from './Notes'
 
-export default function CategorizedLog(technique) {
+export default function CategorizedLog({technique, handleDeleteLog}) {
     const addButton = useRef();
     const [notes, setNotes] = useState([])
     
@@ -30,7 +31,7 @@ export default function CategorizedLog(technique) {
 
 
     return (
-        <div draggable="true" id={technique.id} onDrag={handleDragStart} style={{backgroundColor: log.color}} class="log">
+        <div draggable="true" id={technique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd} style={{backgroundColor: technique.color}} class="log">
         <h4>Technique</h4>
          {technique.technique}
 
@@ -39,7 +40,7 @@ export default function CategorizedLog(technique) {
          <Notes key={technique.id} notes={notes}/>
 
          <button ref={addButton} onClick={handleAddNote} id="add">+</button>
-         <button ref={addButton} onClick={() => handleDeleteLog(log.id)} id="delete">Delete Note</button>
+         <button ref={addButton} onClick={() => handleDeleteLog(technique.id)} id="delete">Delete Note</button>
 
      </div>
     )

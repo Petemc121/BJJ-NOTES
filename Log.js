@@ -34,7 +34,7 @@ export default function Log({log, handleDeleteLog}) {
 
 
     return (
-        <div draggable="true" onDrag={handleDragStart} onDragEnd={handleDragEnd}  style={{backgroundColor: log.color}} class="log">
+        <div draggable="true" id={log.id} onDrag={handleDragStart} onDragEnd={handleDragEnd}  style={{backgroundColor: log.color}} class="log">
            <h4>Technique</h4>
             {log.technique}
 

@@ -2,31 +2,38 @@ import React, {useState} from 'react'
 import CategorizedLogs from './CategorizedLogs';
 
 
-export default function Category({category, logs}) {
+export default function Category({category, logs, handleDeleteLog}) {
         const [catTechniques, setCatTechniques] = useState([])
 
     
 
-    const handleDragOver = (e) =>
+    const handleDrop = () =>
     {
-        e.preventDefault();
-        e.target.style.filter = "brightness(200%)";
+     
       const draggable = document.querySelector('.dragging');
         logs.forEach(log => {
 
-            if (draggable.id === log.id)
+            if (draggable.id === log.id.toString())
             {
             setCatTechniques(prevCatTechniques => {
-           
+               
                 return [...prevCatTechniques, {id: log.id, technique:log.technique, color:log.color} ]
                 
             })
-        }
+            }
+
+            console.log(catTechniques)
         })
        
 
     }
 
+    const handleDragOver = (e) =>
+    {   e.preventDefault();
+        e.target.style.filter = "brightness(200%)";
+    }
+
+    
  
     const handleDragLeave = (e) =>
     {
@@ -36,9 +43,9 @@ export default function Category({category, logs}) {
     
 
     return (
-        <div  onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
+        <div  onDrop={handleDrop} onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
             <h1>{category.category + ":"}</h1>
-            <CategorizedLogs catTechniques={catTechniques}/>
+            <CategorizedLogs handleDeleteLog={handleDeleteLog} catTechniques={catTechniques}/>
         </div>
     )
 }
