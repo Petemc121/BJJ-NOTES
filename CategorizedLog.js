@@ -15,7 +15,6 @@ export default function CategorizedLog({technique, handleDeleteLog}) {
             
         })
 
-
     }
 
     function handleDragStart(e) {
