@@ -1,11 +1,11 @@
 import React from 'react'
 import Category from './Category';
 
-export default function Categories({categories, logs, handleDeleteLog}) {
+export default function Categories({categories, techniques, handleDeleteTechnique}) {
     return (
         <div id="categoriesCon">
             {categories.map(category => {
-                return <Category handleDeleteLog={handleDeleteLog} logs={logs} key={category.id} category={category} />;
+                return <Category handleDeleteTechnique={handleDeleteTechnique} techniques={techniques} key={category.id} category={category} />;
             })}
         </div>
     )

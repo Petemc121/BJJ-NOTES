@@ -1,23 +1,24 @@
 import React, { useState, useRef } from 'react';
-import BJJLogs from './BJJLogs';
+import Techniques from './Techniques';
 import Categories from './Categories';
 
 
 export default function App() {
-   const [logs, setBJJLogs] = useState([]);
+   const [techniques, setTechniques] = useState([]);
    const [categories, setCategories] = useState([]);
    const categoryRef = useRef();
    const techniqueRef = useRef();
-   let logNo = Math.floor(Math.random()*100000);
+   let techniqueNo = Math.floor(Math.random()*100000);
    let catNo = Math.floor(Math.random()*100000);
+   
    
    function createLog(e) {
        const technique = techniqueRef.current.value;
        let color = "#" + getRandom(2000000, 1000000).toString(16);
     
-       for(let i = 0; i < logs.length; i++)
+       for(let i = 0; i < techniques.length; i++)
        { 
-           if (color === logs[i].color)
+           if (color === techniques[i].color)
            {
                 const replace = color.replace('#', '');
                 const number= parseInt(replace)
@@ -31,14 +32,24 @@ export default function App() {
        return;
         }
         
-       setBJJLogs(prevLogs => {
+       setTechniques(prevTechniques => {
       
-           return [...prevLogs, {id: logNo, technique:technique, color:color}];
+           return [...prevTechniques, {id: techniqueNo, technique:technique, color:color, notes:null}];
 
        })
+
+    
        
   
        techniqueRef.current.value = null
+    }
+
+    function modifyNotes(notes) {
+        setTechniques(techniques => {
+          return  techniques.forEach(technique => {
+               technique.notes = notes;
+            })
+        })
     }
 
     function handleCreateCategory()
@@ -64,10 +75,8 @@ export default function App() {
     }
 
     
-   const handleDeleteLog = (logID) => {
-    setBJJLogs(logs => {return logs.filter(log => log.id !== logID)})
-    
-   
+   const handleDeleteTechnique = (techniqueID) => {
+    setTechniques(techniques => {return techniques.filter(technique => technique.id !== techniqueID)}) 
 }
 
 
@@ -88,13 +97,13 @@ export default function App() {
         <input ref={techniqueRef} id="technique" class="input" type="text"></input>
         <button onClick={createLog} id="addNote" class="input">Add Technique</button>
         </div>
-        <BJJLogs handleDeleteLog={handleDeleteLog} logs={ logs } />
+        <Techniques handleDeleteTechnique={handleDeleteTechnique} modifyNotes={modifyNotes} techniques={ techniques } />
         <div class="inContain">
         <label for="instructional">Categories</label>    
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
-        <Categories logs={logs} handleDeleteLog={handleDeleteLog} categories={categories}/>
+        <Categories techniques={techniques} modifyNotes={modifyNotes} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
         </>
     )
     

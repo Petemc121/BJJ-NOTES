@@ -1,7 +1,7 @@
 import React, {useState,useRef} from 'react'
 import Notes from './Notes'
 
-export default function CategorizedLog({technique, handleDeleteLog}) {
+export default function CategorizedTechnique({technique, handleDeleteLog}) {
     const addButton = useRef();
     const [notes, setNotes] = useState([])
     
@@ -40,7 +40,7 @@ export default function CategorizedLog({technique, handleDeleteLog}) {
          <Notes key={technique.id} notes={notes}/>
 
          <button ref={addButton} onClick={handleAddNote} id="add">+</button>
-         <button ref={addButton} onClick={() => handleDeleteLog(technique.id)} id="delete">Delete Note</button>
+         <button ref={addButton} onClick={() => handleDeleteLog(technique.id)} id="delete">Delete</button>
 
      </div>
     )
