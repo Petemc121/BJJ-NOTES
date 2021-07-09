@@ -11,7 +11,6 @@ export default function Note({note}) {
     
  const handleUpdateNote = () => {
    let editValue = noteRef.current.value
-   console.log(editValue)
        setEdit(editValue);
        setUpdateDisplay("none")
        setNoteDisplay("none")
@@ -24,8 +23,7 @@ export default function Note({note}) {
         setEditDisplay("none")
         setNoteDisplay("block")
         setUpdateDisplay("block")
-        console.log(updateDisplay)
-        console.log(editDisplay)
+        
     }
 
 

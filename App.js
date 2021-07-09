@@ -36,7 +36,7 @@ export default function App() {
       
            return [...prevTechniques, {id: techniqueNo, technique:technique, color:color, notes:null}];
 
-       })
+       });
 
     
        
@@ -46,10 +46,15 @@ export default function App() {
 
     function modifyNotes(notes) {
         setTechniques(techniques => {
-          return  techniques.forEach(technique => {
-               technique.notes = notes;
+          let  updatedTechniques = [];
+            techniques.forEach(technique => {
+                const updatedTechnique = {id: technique.id, technique: technique.technique, color: technique.color, notes: notes}
+             updatedTechniques.push(updatedTechnique)
             })
-        })
+            
+            return updatedTechniques;
+        });
+        
     }
 
     function handleCreateCategory()

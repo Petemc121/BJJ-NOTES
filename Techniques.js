@@ -3,7 +3,7 @@ import Technique from './Technique'
 
 export default function Techniques({techniques, handleDeleteTechnique, modifyNotes}) {
    
-    console.log(techniques)
+  
 
     return (
        

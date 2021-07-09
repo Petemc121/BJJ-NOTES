@@ -7,10 +7,11 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
 
     
 
-    const handleDrop = () =>
+    const handleDrop = (e) =>
     {
      
       const draggable = document.querySelector('.dragging');
+      e.target.style.filter = "brightness(100%)";
       techniques.forEach(technique => {
 
             if (draggable.id === technique.id.toString())

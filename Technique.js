@@ -13,11 +13,13 @@ export default function Technique({technique, handleDeleteTechnique, modifyNotes
        
         setNotes(notes => {
            
-            return [...notes, {noteText:"", noteID:notes.length + 1, noteTitle:"Note " + (notes.length + 1)}]
-            
+            const newNotes = [...notes, {noteText:"", noteID:notes.length + 1, noteTitle:"Note " + (notes.length + 1)}]
+             modifyNotes(newNotes);
+            console.log(technique)
+             return newNotes;
         })
 
-        modifyNotes(notes);
+        
 
 
     }
