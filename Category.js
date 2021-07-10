@@ -3,9 +3,8 @@ import CategorizedTechniques from './CategorizedTechniques';
 
 
 export default function Category({category, techniques, handleDeleteTechnique}) {
-        const [catTechniques, setCatTechniques] = useState([])
-
-    
+        
+    const [catTechniques, setCatTechniques] = useState([]);
 
     const handleDrop = (e) =>
     {
@@ -18,7 +17,7 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
             {
             setCatTechniques(prevCatTechniques => {
                
-                return [...prevCatTechniques, {id: technique.id, technique:technique.technique, color:technique.color, notes: technique.notes} ]
+                return [...prevCatTechniques, {id: technique.id , technique:technique.technique, color:technique.color, notes: technique.notes}]
                 
             })
             }
@@ -52,10 +51,10 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
     }
 
     function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
-        setCatTechniques(CatTechniques => {
+        setCatTechniques(catTechniques => {
             let updatedCatTechniques = [];
             
-            CatTechniques.forEach(catTechnique => {
+            catTechniques.forEach(catTechnique => {
                 let updatedCatTechniqueNotes = [];
                 if (catTechnique.id === chosenCatTechnique.id)
                  {
@@ -63,7 +62,8 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
                     catTechnique.notes.forEach(catTechniqueNote => {
                         if (catTechniqueNote.noteID === noteID)
                         { 
-                            updatedCatTechniques.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
+                            alert('same')
+                            updatedCatTechniqueNotes.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
                         } else{
 
                             updatedCatTechniqueNotes.push({noteText:catTechniqueNote.noteText, noteID:catTechniqueNote.noteID, noteTitle:"Note " + (catTechniqueNote.noteID)})
@@ -101,7 +101,7 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
     
 
     return (
-        <div  onDrop={handleDrop} onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
+        <div onDrop={handleDrop} onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
             <h1>{category.category + ":"}</h1>
             <CategorizedTechniques addCatTechNote={addCatTechNote} editCatTechNote={editCatTechNote} handleDeleteTechnique={handleDeleteTechnique} catTechniques={catTechniques}/>
         </div>

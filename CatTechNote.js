@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
 
-export default function CatTechNote(editCatTechNote, catTechnique, catTechNote) {
+export default function CatTechNote({editCatTechNote, catTechnique, catTechNote}) {
 
     const [editDisplay, setEditDisplay] = useState("block");
     const [noteDisplay, setNoteDisplay] = useState("none");
@@ -10,7 +10,7 @@ export default function CatTechNote(editCatTechNote, catTechnique, catTechNote) 
      
   const handleUpdateCatTechNote = () => {
     let editValue = noteRef.current.value
-    editCatTechNote(editValue,note.noteID, technique)
+    editCatTechNote(editValue,catTechNote.noteID, catTechnique)
         setUpdateDisplay("none")
         setNoteDisplay("none")
         setEditDisplay("block")

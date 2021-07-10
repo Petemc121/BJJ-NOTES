@@ -1,6 +1,6 @@
 
 import React, {useState,useRef} from 'react'
-import CatTechNotes from './Notes'
+import CatTechNotes from './CatTechNotes'
 
 export default function CategorizedTechnique({addCatTechNote, editCatTechNote, catTechnique, handleDeleteLog}) {
     const addButton = useRef();
