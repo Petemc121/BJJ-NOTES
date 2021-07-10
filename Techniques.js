@@ -1,7 +1,7 @@
 import React from 'react'
 import Technique from './Technique'
 
-export default function Techniques({techniques, handleDeleteTechnique, modifyNotes}) {
+export default function Techniques({techniques, handleDeleteTechnique, editNote,  addNote}) {
    
   
 
@@ -11,7 +11,7 @@ export default function Techniques({techniques, handleDeleteTechnique, modifyNot
             
            {techniques.map(technique => {
 
-               return <Technique key={technique.id} modifyNotes={modifyNotes} handleDeleteTechnique={handleDeleteTechnique} technique={technique} />
+               return <Technique key={technique.id} editNote={editNote} addNote={addNote} handleDeleteTechnique={handleDeleteTechnique} technique={technique} />
            })}
            
         </div>

@@ -1,20 +1,16 @@
 
 import React, {useState,useRef} from 'react'
-import Notes from './Notes'
+import CatTechNotes from './Notes'
 
-export default function CategorizedTechnique({technique, handleDeleteLog}) {
+export default function CategorizedTechnique({addCatTechNote, editCatTechNote, catTechnique, handleDeleteLog}) {
     const addButton = useRef();
-    const [notes, setNotes] = useState([])
+    
     
 
-    function handleAddNote() {
+    function handleAddCatTechNote() {
 
-       
-        setNotes(notes => {
-           
-            return [...notes, {noteText:"", noteID:notes.length + 1, noteTitle:"Note " + (notes.length + 1)}]
-            
-        })
+        const newNotes = [...catTechnique.notes, {noteText:"Add your note here.", noteID:catTechnique.notes.length + 1, noteTitle:"Note " + (catTechnique.notes.length + 1)}]
+        addCatTechNote(newNotes, catTechnique);
 
     }
 
@@ -31,16 +27,16 @@ export default function CategorizedTechnique({technique, handleDeleteLog}) {
 
 
     return (
-        <div draggable="true" id={technique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd} style={{backgroundColor: technique.color}} class="log">
+        <div draggable="true" id={catTechnique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd} style={{backgroundColor: catTechnique.color}} class="log">
         <h4>Technique</h4>
-         {technique.technique}
+         {catTechnique.technique}
 
          <h4>Notes</h4>
 
-         <Notes key={technique.id} notes={notes}/>
+         <CatTechNotes key={catTechnique.id} editCatTechNote={editCatTechNote} catTechnique={catTechnique}/>
 
-         <button ref={addButton} onClick={handleAddNote} id="add">+</button>
-         <button ref={addButton} onClick={() => handleDeleteLog(technique.id)} id="delete">Delete</button>
+         <button ref={addButton} onClick={handleAddCatTechNote} id="add">+</button>
+         <button ref={addButton} onClick={() => handleDeleteLog(catTechnique.id)} id="delete">Delete</button>
 
      </div>
     )

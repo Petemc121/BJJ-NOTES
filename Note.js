@@ -1,8 +1,7 @@
 import React, {useState, useRef} from 'react'
 
 
-export default function Note({note}) {
-   const [edit, setEdit] = useState("Your note will appear here.")
+export default function Note({note, technique, editNote}) {
    const [editDisplay, setEditDisplay] = useState("block");
    const [noteDisplay, setNoteDisplay] = useState("none");
    const noteRef = useRef();
@@ -11,7 +10,7 @@ export default function Note({note}) {
     
  const handleUpdateNote = () => {
    let editValue = noteRef.current.value
-       setEdit(editValue);
+   editNote(editValue,note.noteID, technique)
        setUpdateDisplay("none")
        setNoteDisplay("none")
        setEditDisplay("block")
@@ -35,7 +34,7 @@ export default function Note({note}) {
             <h4>Note {note.noteID}:</h4>
             <div class="noteContain">
             <input ref={noteRef} style={{display: noteDisplay}} type="text" placeholder="Place your note here."></input>
-            <div class="notesOut">{edit}</div>
+            <div class="notesOut">{note.noteText}</div>
             <button class="update" style={{display: updateDisplay}} onClick={handleUpdateNote}>Update</button> 
             <button class="edit" style={{display: editDisplay, margin:"10px 0px 10px 0px"}} onClick={handleEditNote}>Edit</button> 
             </div>

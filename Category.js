@@ -18,7 +18,7 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
             {
             setCatTechniques(prevCatTechniques => {
                
-                return [...prevCatTechniques, {id: technique.id, technique:technique.technique, color:technique.color} ]
+                return [...prevCatTechniques, {id: technique.id, technique:technique.technique, color:technique.color, notes: technique.notes} ]
                 
             })
             }
@@ -28,6 +28,63 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
        
 
     }
+
+    function addCatTechNote(notes, chosenCatTechnique) {
+        setCatTechniques(catTechniques => {
+          let  updatedCatTechniques = [];
+            catTechniques.forEach(catTechnique => {
+                if (catTechnique.id == chosenCatTechnique.id)
+                {
+                let updatedTechnique = {id: chosenCatTechnique.id, technique: chosenCatTechnique.technique, color: chosenCatTechnique.color, notes: notes}
+
+                updatedCatTechniques.push(updatedTechnique)
+                } else{
+                    
+                    updatedCatTechniques.push(catTechnique)
+                }
+            
+             console.log(updatedCatTechniques)
+            })
+            
+            return updatedCatTechniques;
+        });
+        
+    }
+
+    function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
+        setCatTechniques(CatTechniques => {
+            let updatedCatTechniques = [];
+            
+            CatTechniques.forEach(catTechnique => {
+                let updatedCatTechniqueNotes = [];
+                if (catTechnique.id === chosenCatTechnique.id)
+                 {
+
+                    catTechnique.notes.forEach(catTechniqueNote => {
+                        if (catTechniqueNote.noteID === noteID)
+                        { 
+                            updatedCatTechniques.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
+                        } else{
+
+                            updatedCatTechniqueNotes.push({noteText:catTechniqueNote.noteText, noteID:catTechniqueNote.noteID, noteTitle:"Note " + (catTechniqueNote.noteID)})
+                        }
+                    })
+                    updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: updatedCatTechniqueNotes})
+
+
+                  } else
+                  {
+                    updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes:catTechnique.notes})
+                  }
+
+
+                })
+
+                return updatedCatTechniques;
+            })
+
+        }
+    
 
     const handleDragOver = (e) =>
     {   e.preventDefault();
@@ -46,7 +103,7 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
     return (
         <div  onDrop={handleDrop} onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
             <h1>{category.category + ":"}</h1>
-            <CategorizedTechniques handleDeleteTechnique={handleDeleteTechnique} catTechniques={catTechniques}/>
+            <CategorizedTechniques addCatTechNote={addCatTechNote} editCatTechNote={editCatTechNote} handleDeleteTechnique={handleDeleteTechnique} catTechniques={catTechniques}/>
         </div>
     )
 }

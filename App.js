@@ -34,7 +34,7 @@ export default function App() {
         
        setTechniques(prevTechniques => {
       
-           return [...prevTechniques, {id: techniqueNo, technique:technique, color:color, notes:null}];
+           return [...prevTechniques, {id: techniqueNo, technique:technique, color:color, notes:[]}];
 
        });
 
@@ -44,18 +44,62 @@ export default function App() {
        techniqueRef.current.value = null
     }
 
-    function modifyNotes(notes) {
+    function addNote(notes, chosenTechnique) {
         setTechniques(techniques => {
           let  updatedTechniques = [];
             techniques.forEach(technique => {
-                const updatedTechnique = {id: technique.id, technique: technique.technique, color: technique.color, notes: notes}
-             updatedTechniques.push(updatedTechnique)
+                if (technique.id == chosenTechnique.id)
+                {
+                let updatedTechnique = {id: chosenTechnique.id, technique: chosenTechnique.technique, color: chosenTechnique.color, notes: notes}
+
+                updatedTechniques.push(updatedTechnique)
+                } else{
+                    
+                    updatedTechniques.push(technique)
+                }
+            
+             console.log(updatedTechniques)
             })
             
             return updatedTechniques;
         });
         
     }
+
+    function editNote(noteEdit, noteID, chosenTechnique) {
+        setTechniques(techniques => {
+            let updatedTechniques = [];
+            
+            techniques.forEach(technique => {
+                let updatedTechniqueNotes = [];
+                if (technique.id === chosenTechnique.id)
+                 {
+
+                    technique.notes.forEach(techniqueNote => {
+                        if (techniqueNote.noteID === noteID)
+                        { 
+                            updatedTechniqueNotes.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
+                        } else{
+
+                            updatedTechniqueNotes.push({noteText:techniqueNote.noteText, noteID:techniqueNote.noteID, noteTitle:"Note " + (techniqueNote.noteID)})
+                        }
+                    })
+                    updatedTechniques.push({id: technique.id, technique: technique.technique, color: technique.color, notes: updatedTechniqueNotes})
+
+
+                  } else
+                  {
+                    updatedTechniques.push({id: technique.id, technique: technique.technique, color: technique.color, notes:technique.notes})
+                  }
+
+
+                })
+
+                return updatedTechniques;
+            })
+
+        }
+    
 
     function handleCreateCategory()
     {
@@ -102,13 +146,13 @@ export default function App() {
         <input ref={techniqueRef} id="technique" class="input" type="text"></input>
         <button onClick={createLog} id="addNote" class="input">Add Technique</button>
         </div>
-        <Techniques handleDeleteTechnique={handleDeleteTechnique} modifyNotes={modifyNotes} techniques={ techniques } />
+        <Techniques handleDeleteTechnique={handleDeleteTechnique} editNote={editNote} addNote={addNote} techniques={ techniques } />
         <div class="inContain">
         <label for="instructional">Categories</label>    
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
-        <Categories techniques={techniques} modifyNotes={modifyNotes} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
+        <Categories techniques={techniques} editNote={editNote} addNote={addNote} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
         </>
     )
     

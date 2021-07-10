@@ -1,26 +1,15 @@
-import React, {useState, useRef} from 'react'
+import React, {useRef} from 'react'
 import Notes from './Notes.js'
 
-export default function Technique({technique, handleDeleteTechnique, modifyNotes}) {
+export default function Technique({technique, handleDeleteTechnique, editNote, addNote}) {
     
 
     const addButton = useRef();
-    const [notes, setNotes] = useState([])
-    
 
     function handleAddNote() {
-
-       
-        setNotes(notes => {
            
-            const newNotes = [...notes, {noteText:"", noteID:notes.length + 1, noteTitle:"Note " + (notes.length + 1)}]
-             modifyNotes(newNotes);
-            console.log(technique)
-             return newNotes;
-        })
-
-        
-
+            const newNotes = [...technique.notes, {noteText:"Add your note here.", noteID:technique.notes.length + 1, noteTitle:"Note " + (technique.notes.length + 1)}]
+            addNote(newNotes, technique);
 
     }
 
@@ -34,6 +23,7 @@ export default function Technique({technique, handleDeleteTechnique, modifyNotes
         e.target.classList.remove('dragging');  // this / e.target is the source node.
         
       }
+
    
 
 
@@ -44,7 +34,7 @@ export default function Technique({technique, handleDeleteTechnique, modifyNotes
 
             <h4>Notes</h4>
 
-            <Notes key={technique.id} notes={notes}/>
+            <Notes key={technique.id} editNote={editNote} technique={technique}/>
 
             <button ref={addButton} onClick={handleAddNote} id="add">+</button>
             <button ref={addButton} onClick={() => handleDeleteTechnique(technique.id)} id="delete">Delete</button>
