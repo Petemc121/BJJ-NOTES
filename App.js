@@ -38,10 +38,8 @@ export default function App() {
 
        });
 
-    
-       
   
-       techniqueRef.current.value = null
+       techniqueRef.current.value = null;
     }
 
     function addNote(notes, chosenTechnique) {
@@ -79,7 +77,8 @@ export default function App() {
                         if (techniqueNote.noteID === noteID)
                         { 
                             updatedTechniqueNotes.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
-                        } else{
+                        } else
+                        {
 
                             updatedTechniqueNotes.push({noteText:techniqueNote.noteText, noteID:techniqueNote.noteID, noteTitle:"Note " + (techniqueNote.noteID)})
                         }
@@ -103,7 +102,9 @@ export default function App() {
 
     function handleCreateCategory()
     {
-        let color = "#" + getRandom(2000000, 1000000).toString(16);
+
+        // GREEN PURPLE BLUE BROWN RED YELLOW ORANGE BROWN GREY WHITE
+        const colorArray = ["#08892c","#8e057e","#3f3f8c","#874c47", "#dd9300", "#a32f2f", "#d1ca00", "#2d2020"]
         const category = categoryRef.current.value;
 
         if(category === "")
@@ -112,7 +113,7 @@ export default function App() {
          }
 
          setCategories(prevCategories => {
-             return [...prevCategories, {id:catNo, category:category, color:color }]
+             return [...prevCategories, {id:catNo, category:category, color:colorArray[categories.length] }]
          })
 
          categoryRef.current.value = null;

@@ -15,18 +15,44 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
 
             if (draggable.id === technique.id.toString())
             {
-            setCatTechniques(prevCatTechniques => {
+               const oldColor = category.color;
+               console.log(oldColor)
+                
+           const newColor = lighten(oldColor);
+           console.log(newColor)
+               draggable.style.filter = "brightness(75%)"
                
-                return [...prevCatTechniques, {id: technique.id , technique:technique.technique, color:technique.color, notes: technique.notes}]
+               
+
+            setCatTechniques(prevCatTechniques => {
+
+              
+                return [...prevCatTechniques, {id: technique.id , technique:technique.technique, color:newColor, notes: technique.notes}]
                 
             })
             }
-
-            console.log(catTechniques)
         })
        
 
     }
+        function lighten(hex)
+        {   
+
+         const removeHash = hex.substring(1,hex.length);
+         const hexConvert = "0x" + removeHash
+          const asNumber = parseInt(hexConvert);
+          
+          const alteredHex ='#' + (asNumber + 1000000).toString(16)
+
+            return alteredHex;
+            
+
+        }
+
+     
+
+
+
 
     function addCatTechNote(notes, chosenCatTechnique) {
         setCatTechniques(catTechniques => {
@@ -102,7 +128,7 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
 
     return (
         <div onDrop={handleDrop} onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
-            <h1>{category.category + ":"}</h1>
+            <h1 class="categoryHeaders">{category.category }</h1>
             <CategorizedTechniques addCatTechNote={addCatTechNote} editCatTechNote={editCatTechNote} handleDeleteTechnique={handleDeleteTechnique} catTechniques={catTechniques}/>
         </div>
     )

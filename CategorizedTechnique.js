@@ -1,5 +1,5 @@
 
-import React, {useState,useRef} from 'react'
+import React, {useRef} from 'react'
 import CatTechNotes from './CatTechNotes'
 
 export default function CategorizedTechnique({addCatTechNote, editCatTechNote, catTechnique, handleDeleteLog}) {

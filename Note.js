@@ -25,10 +25,6 @@ export default function Note({note, technique, editNote}) {
         
     }
 
-
-
-
-
     return (
         <div>
             <h4>Note {note.noteID}:</h4>
