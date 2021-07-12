@@ -19,8 +19,8 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
                console.log(oldColor)
                 
            const newColor = lighten(oldColor);
-           console.log(newColor)
-               draggable.style.filter = "brightness(75%)"
+                
+           
                
                
 
@@ -31,6 +31,8 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
                 
             })
             }
+
+            handleDeleteTechnique(technique.id);
         })
        
 
@@ -51,7 +53,10 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
 
      
 
-
+        const handleDeleteCatTechnique = (techniqueID) => {
+            setCatTechniques(catTechniques => {return catTechniques.filter(catTechnique => catTechnique.id !== techniqueID)}) 
+        }
+        
 
 
     function addCatTechNote(notes, chosenCatTechnique) {
@@ -75,6 +80,30 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
         });
         
     }
+
+    function handleDeleteCatTechNote(noteID, techniqueID)
+    {
+        setCatTechniques(catTechniques => {
+           return catTechniques.map(catTechnique =>
+                {
+                    
+                    if (catTechnique.id === techniqueID)
+                    {
+                       const newNotes = catTechnique.notes.filter(note => note.noteID != noteID);
+
+                       return {id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: newNotes}
+
+                    } else
+                    {
+                        return {id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: catTechnique.notes}
+                    }
+
+                    
+                })
+        })
+    }
+
+    
 
     function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
         setCatTechniques(catTechniques => {
@@ -129,7 +158,8 @@ export default function Category({category, techniques, handleDeleteTechnique}) 
     return (
         <div onDrop={handleDrop} onDragOver={handleDragOver}  onDragLeave={handleDragLeave} droppable="true" style={{backgroundColor:category.color}} class="category">
             <h1 class="categoryHeaders">{category.category }</h1>
-            <CategorizedTechniques addCatTechNote={addCatTechNote} editCatTechNote={editCatTechNote} handleDeleteTechnique={handleDeleteTechnique} catTechniques={catTechniques}/>
+            <p style={{fontFamily:'"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'}}>Click the technique name to expand or contract.</p>
+            <CategorizedTechniques handleDeleteCatTechNote={handleDeleteCatTechNote} addCatTechNote={addCatTechNote} editCatTechNote={editCatTechNote} handleDeleteCatTechnique={handleDeleteCatTechnique} catTechniques={catTechniques}/>
         </div>
     )
 }

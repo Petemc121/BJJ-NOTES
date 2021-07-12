@@ -98,6 +98,8 @@ export default function App() {
             })
 
         }
+
+
     
 
     function handleCreateCategory()
@@ -129,7 +131,27 @@ export default function App() {
     setTechniques(techniques => {return techniques.filter(technique => technique.id !== techniqueID)}) 
 }
 
+    function handleDeleteNote(noteID, techniqueID)
+    {
+        setTechniques(techniques => {
+           return techniques.map(technique =>
+                {
+                    
+                    if (technique.id === techniqueID)
+                    {
+                       const newNotes = technique.notes.filter(note => note.noteID != noteID);
 
+                       return {id: technique.id, technique: technique.technique, color: technique.color, notes: newNotes}
+
+                    } else
+                    {
+                        return {id: technique.id, technique: technique.technique, color: technique.color, notes: technique.notes}
+                    }
+
+                    
+                })
+        })
+    }
 
     
    
@@ -147,7 +169,7 @@ export default function App() {
         <input ref={techniqueRef} id="technique" class="input" type="text"></input>
         <button onClick={createLog} id="addNote" class="input">Add Technique</button>
         </div>
-        <Techniques handleDeleteTechnique={handleDeleteTechnique} editNote={editNote} addNote={addNote} techniques={ techniques } />
+        <Techniques handleDeleteTechnique={handleDeleteTechnique} handleDeleteNote={handleDeleteNote}  editNote={editNote} addNote={addNote} techniques={ techniques } />
         <div class="inContain">
         <label for="instructional">Categories</label>    
         <input ref={categoryRef} id="category" class="input" type="text"></input>

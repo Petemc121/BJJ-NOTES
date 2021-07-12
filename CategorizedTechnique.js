@@ -1,10 +1,10 @@
 
-import React, {useRef} from 'react'
+import React, {useState,useRef} from 'react'
 import CatTechNotes from './CatTechNotes'
 
-export default function CategorizedTechnique({addCatTechNote, editCatTechNote, catTechnique, handleDeleteLog}) {
+export default function CategorizedTechnique({addCatTechNote, editCatTechNote, handleDeleteCatTechNote, catTechnique, handleDeleteCatTechnique}) {
     const addButton = useRef();
-    
+    const [expanded, setExpanded] = useState('none');
     
 
     function handleAddCatTechNote() {
@@ -25,18 +25,28 @@ export default function CategorizedTechnique({addCatTechNote, editCatTechNote, c
         
       }
 
+      function expand() {
+        if(expanded == 'none')
+        {
+          setExpanded('block')
+        } else
+        {
+          setExpanded('none')
+        }
+      }
+
 
     return (
-        <div draggable="true" id={catTechnique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd} style={{backgroundColor: catTechnique.color}} class="log">
-        <h4>Technique</h4>
-         {catTechnique.technique}
+        <div id={catTechnique.id}  onDrag={handleDragStart} onDragEnd={handleDragEnd} style={{backgroundColor: catTechnique.color}} class="log">
+    
+         <h3 onClick={expand}>{catTechnique.technique}</h3>
 
-         <h4>Notes</h4>
+         <h4 style={{display:expanded}}>Notes</h4>
 
-         <CatTechNotes key={catTechnique.id} editCatTechNote={editCatTechNote} catTechnique={catTechnique}/>
+         <CatTechNotes style={{display:expanded}} expanded={expanded} key={catTechnique.id} editCatTechNote={editCatTechNote} handleDeleteCatTechNote={handleDeleteCatTechNote} catTechnique={catTechnique}/>
 
-         <button ref={addButton} onClick={handleAddCatTechNote} id="add">+</button>
-         <button ref={addButton} onClick={() => handleDeleteLog(catTechnique.id)} id="delete">Delete</button>
+         <button style={{display:expanded}} ref={addButton} onClick={handleAddCatTechNote} id="add">+</button>
+         <button style={{display:expanded}} ref={addButton} onClick={() => handleDeleteCatTechnique(catTechnique.id)} id="delete">Delete</button>
 
      </div>
     )

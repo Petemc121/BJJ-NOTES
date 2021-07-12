@@ -1,14 +1,14 @@
 import React, {useRef} from 'react'
 import Notes from './Notes.js'
 
-export default function Technique({technique, handleDeleteTechnique, editNote, addNote}) {
+export default function Technique({technique, handleDeleteTechnique, handleDeleteNote, editNote, addNote}) {
     
 
     const addButton = useRef();
 
     function handleAddNote() {
            
-            const newNotes = [...technique.notes, {noteText:"Add your note here.", noteID:technique.notes.length + 1, noteTitle:"Note " + (technique.notes.length + 1)}]
+            const newNotes = [...technique.notes, {noteText:"Your note will be displayed here.", noteID:technique.notes.length + 1, noteTitle:"Note " + (technique.notes.length + 1)}]
             addNote(newNotes, technique);
 
     }
@@ -29,12 +29,12 @@ export default function Technique({technique, handleDeleteTechnique, editNote, a
 
     return (
         <div draggable="true" id={technique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd}  style={{backgroundColor: technique.color}} class="log">
-           <h4>Technique</h4>
-            {technique.technique}
+
+           <h3>{technique.technique}</h3> 
 
             <h4>Notes</h4>
 
-            <Notes key={technique.id} editNote={editNote} technique={technique}/>
+            <Notes key={technique.id} handleDeleteNote={handleDeleteNote} editNote={editNote} technique={technique}/>
 
             <button ref={addButton} onClick={handleAddNote} id="add">+</button>
             <button ref={addButton} onClick={() => handleDeleteTechnique(technique.id)} id="delete">Delete</button>
