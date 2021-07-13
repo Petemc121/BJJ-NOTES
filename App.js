@@ -167,8 +167,6 @@ const handleDeleteCategory = (categoryID) =>
         })
     }
 
-    
-   
 
     return (
         <>

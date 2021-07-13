@@ -4,7 +4,7 @@ import Notes from './Notes.js'
 export default function Technique({technique, handleDeleteTechnique, handleDeleteNote, editNote, addNote}) {
     
 
-    const addButton = useRef();
+   
 
     function handleAddNote() {
            
@@ -36,8 +36,8 @@ export default function Technique({technique, handleDeleteTechnique, handleDelet
 
             <Notes key={technique.id} handleDeleteNote={handleDeleteNote} editNote={editNote} technique={technique}/>
 
-            <button ref={addButton} onClick={handleAddNote} id="add">+</button>
-            <button ref={addButton} onClick={() => handleDeleteTechnique(technique.id)} id="delete">Delete</button>
+            <button  onClick={handleAddNote} id="add">+</button>
+            <button  onClick={() => handleDeleteTechnique(technique.id)} id="delete">Delete</button>
 
         </div>
     )

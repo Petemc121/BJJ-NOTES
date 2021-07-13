@@ -6,7 +6,7 @@ export default function CategoryKeys({categoryKeys}) {
         <div id="categoryKeyContain">
             <h1 style={{color:"white"}}>Category Shortcuts</h1>
             {categoryKeys.map(categoryKey => {
-                return <CategoryKey categoryKey={categoryKey}/> 
+                return <CategoryKey key={categoryKey.id} categoryKey={categoryKey}/> 
             })}
         </div>
     )
