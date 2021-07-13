@@ -140,6 +140,7 @@ export default function App() {
 const handleDeleteCategory = (categoryID) =>
 {
     setCategories(categories => {return categories.filter(category => category.id !== categoryID)})
+    setCategoryKeys(categoryKeys => {return categoryKeys.filter(categoryKey => categoryKey.id !== categoryID)})
 }
 
 

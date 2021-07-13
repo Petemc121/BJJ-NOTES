@@ -136,14 +136,19 @@ body {
 
 #categoryKeyContain
 {
-  height:100px;
-  width:100px;
-  background-color:red;
   position:absolute;
-  right:10%;
-  top:500px;
+  right:3%;
+  top:350px;
+ 
 }
 
+.categoryKeys
+{
+ margin:10px 0px 10px 0px;
+  border-radius:5px;
+  text-align:center;
+  border: 3px solid slateblue;
+}
 
 
 
