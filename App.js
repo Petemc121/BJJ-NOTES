@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import Techniques from './Techniques';
 import Categories from './Categories';
+import CategoryKeys from './CategoryKeys';
 
 
 export default function App() {
    const [techniques, setTechniques] = useState([]);
    const [categories, setCategories] = useState([]);
+   const [categoryKeys, setCategoryKeys] = useState([]);
    const categoryRef = useRef();
    const techniqueRef = useRef();
    let techniqueNo = Math.floor(Math.random()*100000);
@@ -118,6 +120,10 @@ export default function App() {
              return [...prevCategories, {id:catNo, category:category, color:colorArray[categories.length] }]
          })
 
+         setCategoryKeys(prevCategoryKeys => {
+            return [...prevCategoryKeys, {id:catNo, category:category, color:colorArray[categories.length] }]
+         })
+
          categoryRef.current.value = null;
 
     }
@@ -130,6 +136,13 @@ export default function App() {
    const handleDeleteTechnique = (techniqueID) => {
     setTechniques(techniques => {return techniques.filter(technique => technique.id !== techniqueID)}) 
 }
+
+const handleDeleteCategory = (categoryID) =>
+{
+    setCategories(categories => {return categories.filter(category => category.id !== categoryID)})
+}
+
+
 
     function handleDeleteNote(noteID, techniqueID)
     {
@@ -163,19 +176,23 @@ export default function App() {
             <p>Add your techniques below. You can also add categories if you scroll down further (Instructionals, positions etc).</p>
             <p>Feel free to drag and drop your techniques into their respective categories.</p>
         </div>
+       
+        <CategoryKeys categoryKeys={categoryKeys} />
         <div class="inContain">
-        <div id="techniques" class="header">Techniques</div>
+
         <label for="technique">Technique</label>    
         <input ref={techniqueRef} id="technique" class="input" type="text"></input>
         <button onClick={createLog} id="addNote" class="input">Add Technique</button>
         </div>
+        <div id="techniqueContain">
         <Techniques handleDeleteTechnique={handleDeleteTechnique} handleDeleteNote={handleDeleteNote}  editNote={editNote} addNote={addNote} techniques={ techniques } />
+        </div>
         <div class="inContain">
-        <label for="instructional">Categories</label>    
+        <label for="instructional">Category</label>    
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
-        <Categories techniques={techniques} editNote={editNote} addNote={addNote} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
+        <Categories handleDeleteCategory={handleDeleteCategory} techniques={techniques} editNote={editNote} addNote={addNote} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
         </>
     )
     
