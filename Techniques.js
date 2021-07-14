@@ -9,7 +9,7 @@ export default function Techniques({techniques, handleDeleteTechnique, handleDel
        
         <div id="bjjLogsCon">
             
-           {techniques.map(technique => {
+           {techniques.filter(technique => {
 
                return <Technique key={technique.id} editNote={editNote} addNote={addNote} handleDeleteTechnique={handleDeleteTechnique} handleDeleteNote={handleDeleteNote} technique={technique} />
            })}

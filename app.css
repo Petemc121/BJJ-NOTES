@@ -17,12 +17,9 @@ html {
   margin-bottom: 10px;
 }
 
-.categoryHeaders
-{
-  color:white;
+.categoryHeaders {
+  color: white;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-
-
 }
 
 #techniques {
@@ -85,10 +82,9 @@ html {
   flex-wrap: wrap;
 }
 
-#techniqueContain
-{
-  display:flex;
-  justify-content:center;
+#techniqueContain {
+  display: flex;
+  justify-content: center;
 }
 
 #categorizedLogsCon {
@@ -104,7 +100,7 @@ html {
   width: 250px;
   height: auto;
   border-radius: 10px;
-  color:white;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,19 +111,18 @@ html {
 }
 
 .category {
-  width: 80%;
+  width: 60%;
   border-radius: 10px;
   border: 5px solid slateblue;
   padding: 10px;
   margin: 20px 0px 20px 0px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  color:white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
 }
 
-.categoryButtons
-{
+.categoryButtons {
   background-color: rgb(100, 7, 7);
   border: none;
   padding: 10px;
@@ -138,24 +133,23 @@ html {
   cursor: pointer;
 }
 
-#categoryKeyContain
-{
-  position:absolute;
-  right:3%;
-  top:350px;
- 
+#categoryKeyContain {
+  position: absolute;
+  right: 3%;
+  top: 250px;
 }
 
-.categoryKeys
-{
- margin:10px 0px 10px 0px;
-  border-radius:5px;
-  text-align:center;
+.categoryKeys {
+  margin: 10px 0px 10px 0px;
+  border-radius: 5px;
+  text-align: center;
   border: 3px solid slateblue;
-  color:white;
+  color: white;
 }
 
-
+#categoriesIn {
+  margin-top: 200px;
+}
 
 .dragging {
   opacity: 0.5;
@@ -166,9 +160,6 @@ html {
   flex-direction: column;
   align-items: center;
 }
-
-
-
 
 h4 {
   color: rgb(255, 255, 255);
@@ -192,7 +183,7 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width:250px;
+  width: 250px;
   margin: 10px 0px 10px 0px;
 }
 
@@ -202,24 +193,23 @@ label {
 .noteModify {
   font-size: 15px;
   font-weight: bold;
-  background-color:white;
-  border:1px solid black;
+  background-color: white;
+  border: 1px solid black;
   margin: 2px 0px 2px 0px;
-  border-radius:4px;
-  width:50%;
+  border-radius: 4px;
+  width: 50%;
 }
 
-.noteModify:focus 
-{
-  border:3px solid red;
+.noteModify:focus {
+  border: 3px solid red;
 }
 
 .notesOut {
   text-align: center;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  max-width:250px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 250px;
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
@@ -248,13 +238,11 @@ label {
   cursor: pointer;
 }
 
-.buttonCon
-{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  
+.buttonCon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #add:focus {

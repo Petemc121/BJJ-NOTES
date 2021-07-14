@@ -117,11 +117,11 @@ export default function App() {
          }
 
          setCategories(prevCategories => {
-             return [...prevCategories, {id:catNo, category:category, color:colorArray[categories.length] }]
+             return [...prevCategories, {id:catNo, category:category, color:colorArray[categories.length], catTechniques:[] }]
          })
 
          setCategoryKeys(prevCategoryKeys => {
-            return [...prevCategoryKeys, {id:catNo, category:category, color:colorArray[categories.length] }]
+            return [...prevCategoryKeys, {id:catNo, category:category, color:colorArray[categories.length], catKeyTechniques:[] }]
          })
 
          categoryRef.current.value = null;
@@ -167,6 +167,157 @@ const handleDeleteCategory = (categoryID) =>
         })
     }
 
+    
+    const handleDeleteCatTechnique = (techniqueID, categoryID) => {
+        setCategories(categories => {
+           let updatedCategories = []
+            for (let i = 0; i < categories.length; i++)
+            {
+                if (categories[i].id === categoryID)
+                {
+
+         updatedCategories.push( {id:categories[i].id, category:categories[i].category, color:categories[i].color, catTechniques:[categories[i].catTechniques.filter(catTechnique => catTechnique[i].id !== techniqueID)] })
+                }
+            }
+        }) 
+    }
+    
+
+
+function addCatTechNote(newNotes, chosenCatTechnique) {
+    setCategories(categories => {
+      let  updatedCategories = [];
+        categories.forEach(category => {
+            let updatedCatTechniques = [];
+            category.catTechniques.forEach(catTechnique =>
+                {
+            if (catTechnique.id == chosenCatTechnique.id)
+            {
+            let updatedTechnique = {id: chosenCatTechnique.id, technique: chosenCatTechnique.technique, color: chosenCatTechnique.color, notes: newNotes}
+
+            updatedCatTechniques.push(updatedTechnique)
+            } else{
+                
+                updatedCatTechniques.push(catTechnique)
+            }
+        
+        
+        })
+        updatedCategories.push({ id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques })
+        })
+        
+        return updatedCategories;
+    });
+    
+}
+
+function handleDeleteCatTechNote(noteID, techniqueID)
+{
+    setCategories(categories => {
+     return categories.map(category =>
+            {
+                
+       let updatedCatTechniques =  category.catTechniques.map(catTechnique =>
+            {
+                
+                if (catTechnique.id === techniqueID)
+                {
+                   const newNotes = catTechnique.notes.filter(note => note.noteID != noteID);
+
+                   return {id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: newNotes}
+
+                } else
+                {
+                    return {id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: catTechnique.notes}
+                }
+
+                
+            })
+
+            return {id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques }
+    })
+})
+}
+
+const handleDrop = (e, techniques) =>
+{
+ 
+  const draggable = document.querySelector('.dragging');
+  e.target.style.filter = "brightness(100%)";
+  techniques.forEach(technique => {
+
+        if (draggable.id === technique.id.toString())
+        {
+           const oldColor = category.color;
+           console.log(oldColor)
+            
+       const newColor = lighten(oldColor);
+        
+        setCategories(categories => {
+
+          
+            return [...prevCatTechniques, {id: technique.id , technique:technique.technique, color:newColor, notes: technique.notes}]
+            
+        })
+        }
+
+        handleDeleteTechnique(technique.id);
+    })
+   
+
+}
+    function lighten(hex)
+    {   
+
+     const removeHash = hex.substring(1,hex.length);
+     const hexConvert = "0x" + removeHash
+      const asNumber = parseInt(hexConvert);
+      
+      const alteredHex ='#' + (asNumber + 1000000).toString(16)
+
+        return alteredHex;
+        
+
+    }
+
+
+
+
+function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
+    setCatTechniques(catTechniques => {
+        let updatedCatTechniques = [];
+        
+        catTechniques.forEach(catTechnique => {
+            let updatedCatTechniqueNotes = [];
+            if (catTechnique.id === chosenCatTechnique.id)
+             {
+
+                catTechnique.notes.forEach(catTechniqueNote => {
+                    if (catTechniqueNote.noteID === noteID)
+                    { 
+                        
+                        updatedCatTechniqueNotes.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
+                    } else{
+
+                        updatedCatTechniqueNotes.push({noteText:catTechniqueNote.noteText, noteID:catTechniqueNote.noteID, noteTitle:"Note " + (catTechniqueNote.noteID)})
+                    }
+                })
+                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: updatedCatTechniqueNotes})
+
+
+              } else
+              {
+                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes:catTechnique.notes})
+              }
+
+
+            })
+
+            return updatedCatTechniques;
+        })
+
+    }
+
 
     return (
         <>
@@ -178,7 +329,6 @@ const handleDeleteCategory = (categoryID) =>
        
         <CategoryKeys categoryKeys={categoryKeys} />
         <div class="inContain">
-
         <label for="technique">Technique</label>    
         <input ref={techniqueRef} id="technique" class="input" type="text"></input>
         <button onClick={createLog} id="addNote" class="input">Add Technique</button>
@@ -186,7 +336,7 @@ const handleDeleteCategory = (categoryID) =>
         <div id="techniqueContain">
         <Techniques handleDeleteTechnique={handleDeleteTechnique} handleDeleteNote={handleDeleteNote}  editNote={editNote} addNote={addNote} techniques={ techniques } />
         </div>
-        <div class="inContain">
+        <div id="categoriesIn" class="inContain">
         <label for="instructional">Category</label>    
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
