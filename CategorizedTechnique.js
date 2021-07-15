@@ -2,7 +2,7 @@
 import React, {useState,useRef} from 'react'
 import CatTechNotes from './CatTechNotes'
 
-export default function CategorizedTechnique({addCatTechNote, editCatTechNote, handleDeleteCatTechNote, catTechnique, handleDeleteCatTechnique}) {
+export default function CategorizedTechnique({addCatTechNote, category, editCatTechNote, handleDeleteCatTechNote, catTechnique, handleDeleteCatTechnique}) {
     const addButton = useRef();
     const [expanded, setExpanded] = useState('none');
     
@@ -46,7 +46,7 @@ export default function CategorizedTechnique({addCatTechNote, editCatTechNote, h
          <CatTechNotes style={{display:expanded}} expanded={expanded} key={catTechnique.id} editCatTechNote={editCatTechNote} handleDeleteCatTechNote={handleDeleteCatTechNote} catTechnique={catTechnique}/>
 
          <button style={{display:expanded}} ref={addButton} onClick={handleAddCatTechNote} id="add">+</button>
-         <button style={{display:expanded}} ref={addButton} onClick={() => handleDeleteCatTechnique(catTechnique.id)} id="delete">Delete</button>
+         <button style={{display:expanded}} ref={addButton} onClick={() => handleDeleteCatTechnique(catTechnique.id, category.id)} id="delete">Delete</button>
 
      </div>
     )

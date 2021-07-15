@@ -14,7 +14,7 @@ export default function App() {
    let catNo = Math.floor(Math.random()*100000);
    
    
-   function createLog(e) {
+   function createLog() {
        const technique = techniqueRef.current.value;
        let color = "#" + getRandom(2000000, 1000000).toString(16);
     
@@ -171,20 +171,23 @@ const handleDeleteCategory = (categoryID) =>
     const handleDeleteCatTechnique = (techniqueID, categoryID) => {
         setCategories(categories => {
            let updatedCategories = []
-            for (let i = 0; i < categories.length; i++)
-            {
-                if (categories[i].id === categoryID)
+          categories.forEach(category => {
+                if (category.id === categoryID)
                 {
 
-         updatedCategories.push( {id:categories[i].id, category:categories[i].category, color:categories[i].color, catTechniques:[categories[i].catTechniques.filter(catTechnique => catTechnique[i].id !== techniqueID)] })
+         updatedCategories.push( {id:category.id, category:category.category, color:category.color, catTechniques:[category.catTechniques.filter(catTechnique => catTechnique.id !== techniqueID)] })
                 }
-            }
-        }) 
+            })
+
+            return updatedCategories;
+        })
+        
     }
     
+ 
 
 
-function addCatTechNote(newNotes, chosenCatTechnique) {
+function handleAddCatTechNote(newNotes, chosenCatTechnique) {
     setCategories(categories => {
       let  updatedCategories = [];
         categories.forEach(category => {
@@ -239,7 +242,44 @@ function handleDeleteCatTechNote(noteID, techniqueID)
 })
 }
 
-const handleDrop = (e, techniques) =>
+function handleEditCatTechNote(noteEdit, noteID, chosenCatTechnique) {
+    setCategories(categories => {
+        categories.map(category =>
+            {
+        let updatedCatTechniques = [];
+        
+        category.catTechniques.forEach(catTechnique => {
+            let updatedCatTechniqueNotes = [];
+            if (catTechnique.id === chosenCatTechnique.id)
+             {
+                catTechnique.notes.forEach(catTechniqueNote => {
+                    if (catTechniqueNote.noteID === noteID)
+                    { 
+                        
+                        updatedCatTechniqueNotes.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
+                    } else{
+
+                        updatedCatTechniqueNotes.push({noteText:catTechniqueNote.noteText, noteID:catTechniqueNote.noteID, noteTitle:"Note " + (catTechniqueNote.noteID)})
+                    }
+                })
+                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: updatedCatTechniqueNotes})
+
+
+              } else
+              {
+                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes:catTechnique.notes})
+              }
+
+
+            })
+
+            return {id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques };
+        })
+
+    })
+}
+
+const handleDrop = (e, chosenCategory) =>
 {
  
   const draggable = document.querySelector('.dragging');
@@ -248,17 +288,29 @@ const handleDrop = (e, techniques) =>
 
         if (draggable.id === technique.id.toString())
         {
-           const oldColor = category.color;
+           const oldColor = chosenCategory.color;
            console.log(oldColor)
             
        const newColor = lighten(oldColor);
         
         setCategories(categories => {
 
+
+         const updatedCategories = categories.map(category => {
           
-            return [...prevCatTechniques, {id: technique.id , technique:technique.technique, color:newColor, notes: technique.notes}]
-            
-        })
+               if (chosenCategory.id == category.id)
+               {
+               const updatedCatTechniques = [...category.catTechniques, {id: technique.id, technique: technique.technique, color: newColor, notes: technique.notes} ]
+               return  {id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques }
+               }
+               else{
+                   return category
+               }
+
+               })
+
+               return updatedCategories;
+               })
         }
 
         handleDeleteTechnique(technique.id);
@@ -282,43 +334,6 @@ const handleDrop = (e, techniques) =>
 
 
 
-
-function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
-    setCatTechniques(catTechniques => {
-        let updatedCatTechniques = [];
-        
-        catTechniques.forEach(catTechnique => {
-            let updatedCatTechniqueNotes = [];
-            if (catTechnique.id === chosenCatTechnique.id)
-             {
-
-                catTechnique.notes.forEach(catTechniqueNote => {
-                    if (catTechniqueNote.noteID === noteID)
-                    { 
-                        
-                        updatedCatTechniqueNotes.push({noteText:noteEdit, noteID:noteID, noteTitle:"Note " + (noteID)})
-                    } else{
-
-                        updatedCatTechniqueNotes.push({noteText:catTechniqueNote.noteText, noteID:catTechniqueNote.noteID, noteTitle:"Note " + (catTechniqueNote.noteID)})
-                    }
-                })
-                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: updatedCatTechniqueNotes})
-
-
-              } else
-              {
-                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes:catTechnique.notes})
-              }
-
-
-            })
-
-            return updatedCatTechniques;
-        })
-
-    }
-
-
     return (
         <>
         <div id="mainHeader" class="header">BJJ NOTES</div>
@@ -327,7 +342,7 @@ function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
             <p>Feel free to drag and drop your techniques into their respective categories.</p>
         </div>
        
-        <CategoryKeys categoryKeys={categoryKeys} />
+        <CategoryKeys handleDrop={handleDrop} categoryKeys={categoryKeys} />
         <div class="inContain">
         <label for="technique">Technique</label>    
         <input ref={techniqueRef} id="technique" class="input" type="text"></input>
@@ -341,7 +356,7 @@ function editCatTechNote(noteEdit, noteID, chosenCatTechnique) {
         <input ref={categoryRef} id="category" class="input" type="text"></input>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
-        <Categories handleDeleteCategory={handleDeleteCategory} techniques={techniques} editNote={editNote} addNote={addNote} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
+        <Categories handleDrop={handleDrop} handleDeleteCatTechNote={handleDeleteCatTechNote} handleAddCatTechNote={handleAddCatTechNote} handleEditCatTechNote={handleEditCatTechNote} handleDeleteCategory={handleDeleteCategory} techniques={techniques} handleDeleteCatTechnique={handleDeleteCatTechnique} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
         </>
     )
     
