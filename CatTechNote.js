@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react'
 
-export default function CatTechNote({editCatTechNote, expanded, catTechnique, handleDeleteCatTechNote,  catTechNote}) {
+export default function CatTechNote({handleEditCatTechNote, expanded, catTechnique, handleDeleteCatTechNote,  catTechNote}) {
 
     const [editDisplay, setEditDisplay] = useState("block");
     const [noteDisplay, setNoteDisplay] = useState("none");
@@ -10,14 +10,14 @@ export default function CatTechNote({editCatTechNote, expanded, catTechnique, ha
      
   const handleUpdateCatTechNote = () => {
     let editValue = noteRef.current.value
-    editCatTechNote(editValue,catTechNote.noteID, catTechnique)
+    handleEditCatTechNote(editValue,catTechNote.noteID, catTechnique)
         setUpdateDisplay("none")
         setNoteDisplay("none")
         setEditDisplay("block")
         editValue = null;
      }
  
-     const handleEditCatTechNote = () =>
+     const handleDisplayEditCatTechNote = () =>
      {
          setEditDisplay("none")
          setNoteDisplay("block")
@@ -37,7 +37,7 @@ export default function CatTechNote({editCatTechNote, expanded, catTechnique, ha
            
             <button class="noteModify" style={{display: updateDisplay}} onClick={handleUpdateCatTechNote}>Update</button> 
             <button class="noteModify" style={{display: updateDisplay}} onClick={() => { handleDeleteCatTechNote(catTechNote.noteID, catTechnique.id)}}>Delete</button> 
-            <button class="noteModify" style={{display: editDisplay, margin:"10px 0px 10px 0px"}} onClick={handleEditCatTechNote}>Edit</button> 
+            <button class="noteModify" style={{display: editDisplay, margin:"10px 0px 10px 0px"}} onClick={handleDisplayEditCatTechNote}>Edit</button> 
             </div>
             </div>
         </div>

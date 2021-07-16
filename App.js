@@ -174,8 +174,10 @@ const handleDeleteCategory = (categoryID) =>
           categories.forEach(category => {
                 if (category.id === categoryID)
                 {
-
-         updatedCategories.push( {id:category.id, category:category.category, color:category.color, catTechniques:[category.catTechniques.filter(catTechnique => catTechnique.id !== techniqueID)] })
+                    const updatedCatTechniques = category.catTechniques.filter(catTechnique => catTechnique.id !== techniqueID)
+         updatedCategories.push( {id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques })
+                } else{
+                    updatedCategories.push(category)
                 }
             })
 
@@ -217,21 +219,23 @@ function handleAddCatTechNote(newNotes, chosenCatTechnique) {
 function handleDeleteCatTechNote(noteID, techniqueID)
 {
     setCategories(categories => {
-     return categories.map(category =>
+
+     const updatedCategories = categories.map(category =>
             {
-                
-       let updatedCatTechniques =  category.catTechniques.map(catTechnique =>
+       let updatedCatTechniques = []
+         category.catTechniques.forEach(catTechnique =>
             {
                 
                 if (catTechnique.id === techniqueID)
                 {
                    const newNotes = catTechnique.notes.filter(note => note.noteID != noteID);
 
-                   return {id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: newNotes}
+                   updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: newNotes});
+                    console.log('same')
 
                 } else
                 {
-                    return {id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: catTechnique.notes}
+                    updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: catTechnique.notes});
                 }
 
                 
@@ -239,12 +243,14 @@ function handleDeleteCatTechNote(noteID, techniqueID)
 
             return {id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques }
     })
+    return updatedCategories
 })
 }
 
 function handleEditCatTechNote(noteEdit, noteID, chosenCatTechnique) {
     setCategories(categories => {
-        categories.map(category =>
+       
+       const updatedCategories = categories.map(category =>
             {
         let updatedCatTechniques = [];
         
@@ -252,6 +258,7 @@ function handleEditCatTechNote(noteEdit, noteID, chosenCatTechnique) {
             let updatedCatTechniqueNotes = [];
             if (catTechnique.id === chosenCatTechnique.id)
              {
+                
                 catTechnique.notes.forEach(catTechniqueNote => {
                     if (catTechniqueNote.noteID === noteID)
                     { 
@@ -275,7 +282,7 @@ function handleEditCatTechNote(noteEdit, noteID, chosenCatTechnique) {
 
             return {id:category.id, category:category.category, color:category.color, catTechniques:updatedCatTechniques };
         })
-
+        return updatedCategories;
     })
 }
 
@@ -289,7 +296,7 @@ const handleDrop = (e, chosenCategory) =>
         if (draggable.id === technique.id.toString())
         {
            const oldColor = chosenCategory.color;
-           console.log(oldColor)
+           
             
        const newColor = lighten(oldColor);
         

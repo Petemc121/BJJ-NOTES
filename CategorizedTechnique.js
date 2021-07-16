@@ -2,15 +2,15 @@
 import React, {useState,useRef} from 'react'
 import CatTechNotes from './CatTechNotes'
 
-export default function CategorizedTechnique({addCatTechNote, category, editCatTechNote, handleDeleteCatTechNote, catTechnique, handleDeleteCatTechnique}) {
+export default function CategorizedTechnique({handleAddCatTechNote, category, handleEditCatTechNote, handleDeleteCatTechNote, catTechnique, handleDeleteCatTechnique}) {
     const addButton = useRef();
     const [expanded, setExpanded] = useState('none');
     
 
-    function handleAddCatTechNote() {
+    function addCatTechNote() {
 
         const newNotes = [...catTechnique.notes, {noteText:"Add your note here.", noteID:catTechnique.notes.length + 1, noteTitle:"Note " + (catTechnique.notes.length + 1)}]
-        addCatTechNote(newNotes, catTechnique);
+        handleAddCatTechNote(newNotes, catTechnique);
 
     }
 
@@ -43,9 +43,9 @@ export default function CategorizedTechnique({addCatTechNote, category, editCatT
 
          <h4 style={{display:expanded}}>Notes</h4>
 
-         <CatTechNotes style={{display:expanded}} expanded={expanded} key={catTechnique.id} editCatTechNote={editCatTechNote} handleDeleteCatTechNote={handleDeleteCatTechNote} catTechnique={catTechnique}/>
+         <CatTechNotes style={{display:expanded}} expanded={expanded} key={catTechnique.id} handleEditCatTechNote={handleEditCatTechNote} handleDeleteCatTechNote={handleDeleteCatTechNote} catTechnique={catTechnique}/>
 
-         <button style={{display:expanded}} ref={addButton} onClick={handleAddCatTechNote} id="add">+</button>
+         <button style={{display:expanded}} ref={addButton} onClick={addCatTechNote} id="add">+</button>
          <button style={{display:expanded}} ref={addButton} onClick={() => handleDeleteCatTechnique(catTechnique.id, category.id)} id="delete">Delete</button>
 
      </div>
