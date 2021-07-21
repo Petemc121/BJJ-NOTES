@@ -1,8 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, {useEffect, useState, useRef } from 'react';
 import Techniques from './Techniques';
 import Categories from './Categories';
 import CategoryKeys from './CategoryKeys';
 
+const LOCAL_STORAGE_KEY_1 = 'BJJNotesApp.techniques'
+const LOCAL_STORAGE_KEY_2 = 'BJJNotesApp.categories'
+const LOCAL_STORAGE_KEY_3 = 'BJJNotesApp.categoryKeys'
 
 export default function App() {
    const [techniques, setTechniques] = useState([]);
@@ -12,7 +15,36 @@ export default function App() {
    const techniqueRef = useRef();
    let techniqueNo = Math.floor(Math.random()*100000);
    let catNo = Math.floor(Math.random()*100000);
-   
+
+
+useEffect(() => {
+    const storedTechniques = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_1))
+    if (storedTechniques) setTechniques(storedTechniques)
+}, [])
+
+useEffect(() => {
+    const storedCategories = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_2))
+    if (storedCategories) setCategories(storedCategories)
+}, [])
+
+useEffect(() => {
+    const storedCategoryKeys = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_3))
+    if (storedCategoryKeys) setCategoryKeys(storedCategoryKeys)
+}, [])
+
+useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_1, JSON.stringify(techniques))
+}, [techniques])
+
+useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_2, JSON.stringify(categories))
+}, [categories])
+
+useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_3, JSON.stringify(categoryKeys))
+}, [categoryKeys])
+
+
    
    function createLog() {
        const technique = techniqueRef.current.value;
@@ -75,11 +107,11 @@ export default function App() {
         const updatedCatTechniques = category.catTechniques.map(catTechnique => {
                  if (catTechnique.id === techniqueID)
                  {
-                    return {id: catTechnique.id, technique:catTechnique.technique, video:embedVideoLink, color:'rgb(21, 134, 152)', notes:catTechnique.notes}     
+                    return {id: catTechnique.id, technique:catTechnique.technique, video:embedVideoLink, color:catTechnique.color, notes:catTechnique.notes}     
                  }
                  else 
                  {
-                     return {id: catTechnique.id, technique:catTechnique.technique, video:catTechnique.video, color:'rgb(21, 134, 152)', notes:catTechnique.notes}  
+                     return {id: catTechnique.id, technique:catTechnique.technique, video:catTechnique.video, color:catTechnique.color, notes:catTechnique.notes}  
                  }
              })
 
@@ -97,7 +129,7 @@ export default function App() {
             techniques.forEach(technique => {
                 if (technique.id == chosenTechnique.id)
                 {
-                let updatedTechnique = {id: chosenTechnique.id, technique: chosenTechnique.technique, color: chosenTechnique.color, notes: notes}
+                let updatedTechnique = {id: chosenTechnique.id, technique: chosenTechnique.technique, video:chosenTechnique.video, color: chosenTechnique.color, notes: notes}
 
                 updatedTechniques.push(updatedTechnique)
                 } else{
@@ -132,12 +164,12 @@ export default function App() {
                             updatedTechniqueNotes.push({noteText:techniqueNote.noteText, noteID:techniqueNote.noteID, noteTitle:"Note " + (techniqueNote.noteID)})
                         }
                     })
-                    updatedTechniques.push({id: technique.id, technique: technique.technique, color: technique.color, notes: updatedTechniqueNotes})
+                    updatedTechniques.push({id: technique.id, technique: technique.technique, video:technique.video, color: technique.color, notes: updatedTechniqueNotes})
 
 
                   } else
                   {
-                    updatedTechniques.push({id: technique.id, technique: technique.technique, color: technique.color, notes:technique.notes})
+                    updatedTechniques.push({id: technique.id, technique: technique.technique, video:technique.video, color: technique.color, notes:technique.notes})
                   }
 
 
@@ -206,11 +238,11 @@ const handleDeleteCategory = (categoryID) =>
                     {
                        const newNotes = technique.notes.filter(note => note.noteID != noteID);
 
-                       return {id: technique.id, technique: technique.technique, color: technique.color, notes: newNotes}
+                       return {id: technique.id, technique: technique.technique, video:technique.video, color: technique.color, notes: newNotes}
 
                     } else
                     {
-                        return {id: technique.id, technique: technique.technique, color: technique.color, notes: technique.notes}
+                        return {id: technique.id, technique: technique.technique, video:technique.video, color: technique.color, notes: technique.notes}
                     }
 
                     
@@ -249,7 +281,7 @@ function handleAddCatTechNote(newNotes, chosenCatTechnique) {
                 {
             if (catTechnique.id == chosenCatTechnique.id)
             {
-            let updatedTechnique = {id: chosenCatTechnique.id, technique: chosenCatTechnique.technique, color: chosenCatTechnique.color, notes: newNotes}
+            let updatedTechnique = {id: chosenCatTechnique.id, technique: chosenCatTechnique.technique, video:chosenCatTechnique.video, color: chosenCatTechnique.color, notes: newNotes}
 
             updatedCatTechniques.push(updatedTechnique)
             } else{
@@ -281,12 +313,12 @@ function handleDeleteCatTechNote(noteID, techniqueID)
                 {
                    const newNotes = catTechnique.notes.filter(note => note.noteID != noteID);
 
-                   updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: newNotes});
+                   updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, video:catTechnique.video, color: catTechnique.color, notes: newNotes});
                     console.log('same')
 
                 } else
                 {
-                    updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: catTechnique.notes});
+                    updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, video:catTechnique.video, color: catTechnique.color, notes: catTechnique.notes});
                 }
 
                 
@@ -320,12 +352,12 @@ function handleEditCatTechNote(noteEdit, noteID, chosenCatTechnique) {
                         updatedCatTechniqueNotes.push({noteText:catTechniqueNote.noteText, noteID:catTechniqueNote.noteID, noteTitle:"Note " + (catTechniqueNote.noteID)})
                     }
                 })
-                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes: updatedCatTechniqueNotes})
+                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, video:catTechnique.video, color: catTechnique.color, notes: updatedCatTechniqueNotes})
 
 
               } else
               {
-                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, color: catTechnique.color, notes:catTechnique.notes})
+                updatedCatTechniques.push({id: catTechnique.id, technique: catTechnique.technique, video:catTechnique.video, color: catTechnique.color, notes:catTechnique.notes})
               }
 
 
