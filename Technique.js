@@ -55,9 +55,7 @@ export default function Technique({technique, editVideo, handleDeleteTechnique, 
         alert('Please use a valid Youtube link.')
       }
 
-      
-
-     }
+      }
 
    
 
