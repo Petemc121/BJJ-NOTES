@@ -71,6 +71,11 @@ html {
   font-family: fa5-proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.titles {
+  font-family: fa5-proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #284b63;
+}
+
 .videoFrame {
   margin: 10px 0px 10px 0px;
   max-height: 180px;
@@ -88,6 +93,7 @@ html {
 #categoryKeysTitle {
   font-family: fa5-proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #353535;
+  font-size: 25px;
 }
 
 #addNote:focus {
@@ -101,6 +107,19 @@ html {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+#techniqueSection {
+  border: 2px solid #284b63;
+  margin-bottom: 20px;
+  width: 90%;
+  margin-left: 5%;
+}
+
+#categorySection {
+  border: 2px solid #284b63;
+  width: 90%;
+  margin-left: 5%;
 }
 
 #techniqueContain {

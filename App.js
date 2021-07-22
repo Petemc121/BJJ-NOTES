@@ -452,14 +452,20 @@ const handleDrop = (e, chosenCategory) =>
             <p>Drag and drop techniques into catgeories/category shortcuts to categorize them.</p>
         </div>
        
-       
+        <div id="techniqueSection">
         <div class="inContain">
+            <h1 class="titles">Techniques</h1>
         <label for="technique">Technique</label>    
         <input ref={techniqueRef} id="techniqueIn" class="input titleIn" type="text"></input>
         <button onClick={createLog} id="addTechnique" class="input">Add Technique</button>
         </div>
         <div id="techniqueContain">
         <Techniques handleDeleteTechnique={handleDeleteTechnique} handleDeleteNote={handleDeleteNote} editVideo={editVideo}  editNote={editNote} addNote={addNote} techniques={ techniques } />
+        </div>
+        </div>
+        <div id="categorySection">
+            <div class="center">
+        <h1 class="titles">Categories</h1>
         </div>
         <div class="center">
         <h1 id="categoryKeysTitle" >Category Shortcuts</h1>
@@ -473,6 +479,7 @@ const handleDrop = (e, chosenCategory) =>
         <button onClick={handleCreateCategory} id="addCategory" class="input">Add Category</button>
         </div>
         <Categories handleDrop={handleDrop} handleDeleteCatTechNote={handleDeleteCatTechNote} handleAddCatTechNote={handleAddCatTechNote} editCatTechVideo={editCatTechVideo} handleEditCatTechNote={handleEditCatTechNote} handleDeleteCategory={handleDeleteCategory} techniques={techniques} handleDeleteCatTechnique={handleDeleteCatTechnique} handleDeleteTechnique={handleDeleteTechnique} categories={categories}/>
+        </div>
         </>
     )
     

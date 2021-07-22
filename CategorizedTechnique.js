@@ -83,7 +83,7 @@ export default function CategorizedTechnique({editCatTechVideo, handleAddCatTech
         <div id={catTechnique.id}  onDrag={handleDragStart} onDragEnd={handleDragEnd} style={{backgroundColor: catTechnique.color}} class="log">
     
          <h3 onClick={expand}>{catTechnique.technique}</h3>
-          <div style={{display:expanded}} class="videoContain">
+     <div style={{display:expanded}} class="videoContain">
          <h3>Video</h3> 
             <iframe class="videoFrame"
             title="Technique Video"
@@ -98,7 +98,7 @@ export default function CategorizedTechnique({editCatTechVideo, handleAddCatTech
             <button onClick={handleEditVideo} style={{display:editDisplay}} class="noteModify">Add/Edit Video</button>
             <button onClick={handleUpdateVideo} style={{display:updateDisplay}} class="noteModify">Update</button>
 
-            </div>
+       </div>
 
          <h4 style={{display:expanded}}>Notes</h4>
 
