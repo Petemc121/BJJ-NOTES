@@ -19,12 +19,14 @@ export default function Technique({technique, editVideo, handleDeleteTechnique, 
     }
 
     function handleDragStart(e) {
+      
         e.target.classList.add('dragging');  // this / e.target is the source node.
         
       }
 
       
     function handleDragEnd(e) {
+    
         e.target.classList.remove('dragging');  // this / e.target is the source node.
         
       }
@@ -56,8 +58,6 @@ export default function Technique({technique, editVideo, handleDeleteTechnique, 
       }
 
       }
-
-   
 
 
     return (

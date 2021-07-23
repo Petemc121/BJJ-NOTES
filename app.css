@@ -148,6 +148,7 @@ html {
   margin: 20px;
   font-family: fa5-proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif;
   cursor: pointer;
+  touch-action:none;
 }
 
 .category {
