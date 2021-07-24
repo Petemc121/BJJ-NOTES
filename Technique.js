@@ -23,7 +23,7 @@ export default function Technique({technique, editVideo, handleDeleteTechnique, 
         e.target.classList.add('dragging');  // this / e.target is the source node.
         
       }
-
+zz
       
     function handleDragEnd(e) {
     
@@ -61,7 +61,7 @@ export default function Technique({technique, editVideo, handleDeleteTechnique, 
 
 
     return (
-        <div draggable="true" id={technique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd}  style={{backgroundColor: technique.color}} class="log">
+        <div draggable="true" id={technique.id} onDrag={handleDragStart} onDragEnd={handleDragEnd} onDragEnter={(event) => {event.preventDefault()}} style={{backgroundColor: technique.color}} class="log">
 
            <h3>{technique.technique}</h3> 
            <h3>Video</h3> 
